@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tts.TechTalentTwitter.model.Tweet;
+import com.tts.TechTalentTwitter.model.TweetDisplay;
 import com.tts.TechTalentTwitter.model.User;
 import com.tts.TechTalentTwitter.service.TweetService;
 import com.tts.TechTalentTwitter.service.UserService;
@@ -29,7 +30,7 @@ public class UserController {
 	public String getUser(@PathVariable(value = "username") String username, Model model) {
 		User loggedInUser = userService.getLoggedInUser();
 		User user = userService.findByUsername(username);
-		List<Tweet> tweets = tweetService.findAllByUser(user);
+		List<TweetDisplay> tweets = tweetService.findAllByUser(user);
 		List<User> following = loggedInUser.getFollowing();
 		boolean isFollowing = false;
 		for (User followedUser : following) {
@@ -77,7 +78,7 @@ public class UserController {
 	private void SetTweetCounts(List<User> users, Model model) {
 		HashMap<String, Integer> tweetCounts = new HashMap<>();
 		for (User user : users) {
-			List<Tweet> tweets = tweetService.findAllByUser(user);
+			List<TweetDisplay> tweets = tweetService.findAllByUser(user);
 			tweetCounts.put(user.getUsername(), tweets.size());
 		}
 		model.addAttribute("tweetCounts", tweetCounts);

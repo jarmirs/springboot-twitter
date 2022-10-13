@@ -18,6 +18,11 @@
             <input type="text" id="username" name="username" th:placeholder="Username" class="form-control"/> <br/>
             <input type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
             <div align="center" th:if="${param.error}">
+            <div> Failed to login.
+            <p> th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}" ></span>
+                </p>
+            </div>
+            
                 <h4 style="color: red">Login unsuccessful.</h4>
             </div>
             <button class="btn btn-md btn-success btn-block" name="Submit" value="Login" type="Submit">Log in</button> 
